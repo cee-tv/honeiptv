@@ -1,0 +1,1074 @@
+/* Global Styles */
+:root {
+    --sidebar-width: 350px;
+    --sidebar-bg: rgba(15, 23, 42, 0.95);
+    --main-bg: #0f172a;
+    --accent-color: #3b82f6;
+    --hover-color: #1e40af;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Splash Screen Styles */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    cursor: pointer;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.splash-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.splash-content {
+    text-align: center;
+    color: var(--text-primary);
+    max-width: 600px;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    animation: splashFadeIn 1s ease-out;
+}
+
+@keyframes splashFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.splash-icon {
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.splash-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, var(--accent-color), #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.splash-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.splash-features {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.feature-item i {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+.splash-instructions {
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.splash-instructions p {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.splash-instructions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.splash-instructions li {
+    padding: 0.25rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.splash-instructions li:before {
+    content: "•";
+    color: var(--accent-color);
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* Responsive splash screen */
+@media (max-width: 768px) {
+    .splash-content {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .splash-title {
+        font-size: 2rem;
+    }
+    
+    .splash-features {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .splash-instructions {
+        font-size: 0.85rem;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--main-bg);
+    color: var(--text-primary);
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.container-fluid {
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+}
+
+.row {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(10px);
+    border: none;
+    padding: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    max-height: 100vh;
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 2000;
+    box-shadow: none;
+    outline: none;
+}
+
+.sidebar.show {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar:not(.show) {
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Auto-show on hover for desktop/large screens */
+@media (min-width: 993px) {
+    .video-container:hover .sidebar {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .main-content:hover .sidebar {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Sidebar indicator when hidden - completely removed to prevent blue lines */
+.sidebar::before,
+.sidebar::after {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    background: inherit;
+    z-index: 20;
+}
+
+.sidebar-header h4 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.search-container input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    border-radius: 12px;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.search-container input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.search-container input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.sidebar-close {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.25rem 0.5rem;
+}
+
+.sidebar-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: white;
+}
+
+/* Channels List */
+.channels-list {
+    padding: 0;
+    margin-top: 0;
+    position: relative;
+    height: calc(100vh - 120px); /* Account for header height */
+    overflow-y: auto;
+}
+
+.channel-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    gap: 1.25rem;
+}
+
+.channel-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.channel-item.active {
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 4px solid rgba(255, 255, 255, 0.4);
+}
+
+.channel-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Channel Number */
+.channel-number {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    min-width: 2rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.channel-item.active .channel-number {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.channel-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.channel-name-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2px;
+}
+
+.channel-details h6 {
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    flex: 1;
+}
+
+.channel-status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.channel-status-indicator.unknown {
+    background: rgba(148, 163, 184, 0.4);
+    border: 1px solid rgba(148, 163, 184, 0.6);
+}
+
+.channel-status-indicator.ok {
+    background: #22c55e;
+    border: 1px solid #16a34a;
+    box-shadow: 0 0 4px rgba(34, 197, 94, 0.4);
+}
+
+.channel-status-indicator.error {
+    background: #ef4444;
+    border: 1px solid #dc2626;
+    box-shadow: 0 0 4px rgba(239, 68, 68, 0.4);
+    animation: pulse-error 2s infinite;
+}
+
+@keyframes pulse-error {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: var(--main-bg);
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Video Container */
+.video-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Hover indicator for desktop - removed to prevent blue lines */
+@media (min-width: 993px) {
+    .video-container:hover::before {
+        display: none;
+    }
+}
+
+.video-player {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: relative;
+    object-fit: contain;
+}
+
+/* Ensure JW Player fits properly */
+#video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+}
+
+/* JW Player container styling */
+.jwplayer {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+}
+
+.jwplayer video {
+    object-fit: contain !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Ensure video maintains aspect ratio */
+.jwplayer .jw-video {
+    object-fit: contain !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Video aspect ratio container */
+.jwplayer .jw-aspect {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Menu Toggle Button */
+.menu-toggle-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    opacity: 1;
+    transform: translateX(0);
+    display: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-toggle-btn.show {
+    opacity: 1;
+    transform: translateX(0);
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.menu-toggle-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+/* Channel Name Popup */
+.channel-name-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 1000;
+    max-width: 400px;
+    width: 90%;
+}
+
+.channel-name-popup.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.channel-name-popup h5 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+
+.channel-name-popup p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Channel Number Display */
+.channel-number-display {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.channel-number-display.show {
+    opacity: 1;
+}
+
+.channel-number-display::before {
+    content: 'CH';
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: -0.2rem;
+}
+
+/* Responsive Design */
+@media (min-width: 993px) {
+    .container-fluid .row {
+        flex-direction: row;
+    }
+    
+    .sidebar {
+        width: var(--sidebar-width);
+        min-width: var(--sidebar-width);
+        max-width: var(--sidebar-width);
+        transform: translateX(0);
+        left: 0;
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: calc(100% - var(--sidebar-width));
+    }
+}
+
+@media (max-width: 992px) {
+    .sidebar {
+        width: 280px;
+    }
+    
+    .menu-toggle-btn {
+        display: block !important;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1500;
+        background: rgba(0, 0, 0, 0.7);
+        border: none;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .menu-toggle-btn:hover {
+        background: rgba(0, 0, 0, 0.9);
+    }
+
+    .sidebar-close {
+        display: block;
+    }
+
+    /* Disable hover on mobile */
+    .main-content:hover .sidebar,
+    .video-container:hover .sidebar {
+        transform: translateX(-100%);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Hide hamburger on large screens */
+@media (min-width: 993px) {
+    .menu-toggle-btn {
+        display: none !important;
+    }
+}
+
+/* Scrollbar Styling */
+.channels-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.channels-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.channels-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.channels-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* Firefox scrollbar */
+.channels-list {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* Fullscreen Styles */
+.video-player:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+}
+
+.video-player:-webkit-full-screen {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+}
+
+.video-player:-moz-full-screen {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+}
+
+/* Hide sidebar in fullscreen */
+.video-container:fullscreen ~ .sidebar,
+.video-player:fullscreen ~ .sidebar {
+    display: none;
+}
+
+/* Hide controls in fullscreen */
+.video-container:fullscreen .menu-toggle-btn,
+.video-player:fullscreen .menu-toggle-btn,
+.video-container:-webkit-full-screen .menu-toggle-btn,
+.video-player:-webkit-full-screen .menu-toggle-btn,
+.video-container:-moz-full-screen .menu-toggle-btn,
+.video-player:-moz-full-screen .menu-toggle-btn {
+    display: none !important;
+}
+
+.video-container:fullscreen .channel-name-popup,
+.video-player:fullscreen .channel-name-popup {
+    display: none;
+}
+
+.video-container:fullscreen .channel-number-display,
+.video-player:fullscreen .channel-number-display,
+.video-container:-webkit-full-screen .channel-number-display,
+.video-player:-webkit-full-screen .channel-number-display,
+.video-container:-moz-full-screen .channel-number-display,
+.video-player:-moz-full-screen .channel-number-display {
+    display: none !important;
+}
+
+/* Large Screen Optimizations */
+@media (min-width: 1200px) {
+    .video-container {
+        height: 100vh;
+    }
+    
+    .video-player {
+        height: 100vh;
+        max-height: 100vh;
+    }
+}
+
+@media (min-width: 1920px) {
+    .video-container {
+        height: 100vh;
+    }
+    
+    .video-player {
+        height: 100vh;
+        max-height: 100vh;
+    }
+}
+
+.hidden {
+    display: none !important;
+} 
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 280px !important;
+        max-width: 85vw !important;
+        background: rgba(15, 23, 42, 0.95) !important;
+        backdrop-filter: blur(10px) !important;
+        border: none !important;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    /* Remove sidebar gradient on mobile to prevent blue lines */
+    .sidebar::before {
+        display: none !important;
+    }
+    
+    /* Use default menu button positioning */
+    .menu-toggle-btn {
+        position: absolute !important;
+        top: 20px !important;
+        left: 20px !important;
+        z-index: 2000 !important;
+        background: rgba(0, 0, 0, 0.8) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
+        padding: 12px !important;
+        border-radius: 8px !important;
+        min-width: 48px !important;
+        min-height: 48px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1.2rem !important;
+    }
+    
+    /* Use default channel number display positioning */
+    .channel-number-display {
+        position: absolute !important;
+        top: 20px !important;
+        right: 20px !important;
+        background: rgba(0, 0, 0, 0.8) !important;
+        color: white !important;
+        padding: 8px 12px !important;
+        border-radius: 20px !important;
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+        z-index: 2000 !important;
+    }
+    
+    /* Let main content use default layout */
+    .main-content {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        position: relative !important;
+        background: var(--main-bg) !important;
+    }
+    
+    /* Remove any container padding on mobile */
+    .container-fluid {
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 100vh !important;
+        width: 100vw !important;
+    }
+    
+    .row {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100vh !important;
+        width: 100vw !important;
+    }
+    
+    /* Optimize splash screen for mobile */
+    .splash-content {
+        margin: 1rem !important;
+        padding: 1.5rem !important;
+        max-width: 90vw !important;
+    }
+    
+    .splash-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .splash-features {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    .splash-instructions {
+        font-size: 0.85rem !important;
+        padding: 1rem !important;
+    }
+}
+
+/* Additional mobile optimizations for smaller screens */
+@media (max-width: 480px) {
+    
+    .menu-toggle-btn {
+        top: 15px !important;
+        left: 15px !important;
+        padding: 10px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+    }
+    
+    .channel-number-display {
+        top: 15px !important;
+        right: 15px !important;
+        padding: 6px 10px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .splash-content {
+        margin: 0.5rem !important;
+        padding: 1rem !important;
+    }
+    
+    .splash-title {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* Landscape mobile optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+    
+    .menu-toggle-btn {
+        top: 15px !important;
+        left: 15px !important;
+        padding: 8px !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+    }
+    
+    .channel-number-display {
+        top: 15px !important;
+        right: 15px !important;
+        padding: 6px 10px !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Fix for iOS Safari - Let JW Player handle video */
+@supports (-webkit-touch-callout: none) {
+    /* JW Player handles all video styling */
+}
+
+/* Remove any potential dark blue lines from sidebar */
+.sidebar {
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    padding: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    max-height: 100vh;
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 2000;
+    /* Remove any potential border artifacts */
+    box-shadow: none;
+    outline: none;
+}
+
+/* Ensure no blue lines appear on mobile */
+@media (max-width: 992px) {
+    .sidebar {
+        background: rgba(15, 23, 42, 0.95) !important;
+        backdrop-filter: blur(10px) !important;
+        border: none !important;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .sidebar::before {
+        display: none !important;
+    }
+    
+    .sidebar::after {
+        display: none !important;
+    }
+} 
+
+/* Live Viewer Count Styles */
+.live-viewer-count {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.live-viewer-count.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.live-viewer-count i {
+    color: #10b981;
+    font-size: 16px;
+}
+
+.live-viewer-count .count {
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+/* Viewer Count in Channel Items */
+.viewer-count {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.viewer-count i {
+    color: #10b981;
+    font-size: 12px;
+}
+
+.viewer-count-number {
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+.viewer-count-pulse {
+    animation: viewerCountPulse 0.5s ease;
+}
+
+@keyframes viewerCountPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Channel Item Position for Viewer Count */
+.channel-item {
+    position: relative;
+} 
