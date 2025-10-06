@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Channel Player - EME Protected Streams</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Splash Screen Overlay -->
+    <div id="splashScreen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-icon">
+                <i class="bi bi-play-circle-fill"></i>
+            </div>
+            <h2 class="splash-title">Click here to enter</h2>
+            <p class="splash-subtitle"></p>
+            
+            <!-- Warning Message -->
+            <div class="alert alert-warning mt-3 mx-3" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <strong>Notice:</strong> Some channels may be experiencing issues. We're working on a fix and appreciate your patience.
+            </div>
+            
+            <div class="splash-instructions" style="display:none"></div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <!-- Sidebar Channel List -->
+            <div class="sidebar" id="channelSidebar">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-white mb-0">
+                            <i class="bi bi-broadcast"></i> Channels
+                        </h4>
+                        <button class="btn btn-outline-light btn-sm sidebar-close d-md-none" id="sidebarClose">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <div class="search-container mb-3">
+                        <input type="text" class="form-control" id="channelSearch" placeholder="Search channels...">
+                    </div>
+                </div>
+                
+                <div class="channels-list" id="channelsList">
+                    <!-- Channels will be populated here -->
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="main-content">
+                <!-- Video Player Container -->
+                <div class="video-container">
+                    <div id="video" class="video-player"></div>
+                    
+                    <!-- Menu Toggle Button -->
+                    <button class="btn menu-toggle-btn" id="menuToggleBtn">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    
+                    <!-- Live Viewer Count -->
+                    <div class="live-viewer-count" id="liveViewerCount">
+                        <i class="bi bi-eye"></i>
+                        <span class="count" id="liveViewerCountNumber">0</span>
+                    </div>
+                    
+                    <!-- Channel Number Display -->
+                    <div class="channel-number-display" id="channelNumberDisplay">
+                        <span id="channelNumberText">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://ssl.p.jwpcdn.com/player/v/8.38.3/jwplayer.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html> 
