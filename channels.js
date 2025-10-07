@@ -12,7 +12,7 @@ function generateChannelId(name) {
 const defaultChannelList = [// --- Existing Channels ---
 {
     name: "Cartoon Network HD",
-    manifest: 'http://161.49.17.2:6610/001/2/ch00000090990000001143/manifest.mpd',
+    manifest: 'https://vod.nathcreqtives.com/1178/manifest.mpd',
     drm: {
         type: 'widevine',
         serverURL: CONVRG_LICENSE_URI
